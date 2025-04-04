@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     env_file:
-      - .env
+      - stack.env
     restart: always
     ports:
       - '12005:3000'
@@ -37,7 +37,7 @@ services:
       target: migrator
     command: pnpm drizzle-kit migrate
     env_file:
-      - .env
+      - stack.env
     depends_on:
       - metatool-postgres
 
