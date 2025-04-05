@@ -15,7 +15,8 @@ services:
       - metatool-postgres
     extra_hosts:
       - "host.docker.internal:host-gateway"
-
+    networks:
+      - metatool-net
   metatool-postgres:
     container_name: metatool-postgres
     image: postgres:16.2-alpine3.18
@@ -28,7 +29,8 @@ services:
       - '8432:5432'
     volumes:
       - metatool-postgres:/var/lib/postgresql/data
-
+    networks:
+      - metatool-net
   drizzle-migrate:
     container_name: drizzle-migrate
     build:
@@ -40,12 +42,12 @@ services:
       - stack.env
     depends_on:
       - metatool-postgres
-
+    networks:
+      - metatool-net
 volumes:
   metatool-postgres:
     driver: local
 
 networks:
-  default:
-    name: bridge
-    external: true
+  metatool-net:
+    driver: bridge
