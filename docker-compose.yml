@@ -7,7 +7,6 @@ services:
     env_file:
       - stack.env
     restart: always
-    network_mode: bridge
     ports:
       - '12005:3000'
     environment:
@@ -21,7 +20,6 @@ services:
     container_name: metatool-postgres
     image: postgres:16.2-alpine3.18
     restart: always
-    network_mode: bridge
     environment:
       POSTGRES_DB: metatool
       POSTGRES_USER: metatool
@@ -33,7 +31,6 @@ services:
 
   drizzle-migrate:
     container_name: drizzle-migrate
-    network_mode: bridge
     build:
       context: .
       dockerfile: Dockerfile
@@ -47,3 +44,8 @@ services:
 volumes:
   metatool-postgres:
     driver: local
+
+networks:
+  default:
+    external:
+      name: bridge
