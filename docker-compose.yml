@@ -47,5 +47,5 @@ volumes:
 
 networks:
   default:
-    external:
-      name: bridge
+    name: bridge
+    external: true
